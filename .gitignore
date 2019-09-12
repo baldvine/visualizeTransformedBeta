@@ -1,5 +1,8 @@
 # rsconnect folder, used for deploying to shinyapps.io
 rsconnect/
 
+# Various other files:
+someMethods.R
+
 # pdf files:
 *.pdf
