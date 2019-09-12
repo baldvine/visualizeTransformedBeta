@@ -18,16 +18,13 @@ shinyServer(function(input, output) {
         }
     })
     
+    showMean <- reactive({input$showMean})
+    
     # Get parameters:
     parA <- reactive({input$paramA})
     parB <- reactive({input$paramB})
     parC <- reactive({input$paramC})
     parD <- reactive({input$paramD})
-    
-    # myShape1 = parA/parC 
-    # myShape2 = parC 
-    # myShape3 = parB/parC
-    # myScale = parD
     
 
     output$trbPlot <- renderPlot({
@@ -63,6 +60,10 @@ shinyServer(function(input, output) {
                   axis.title = element_text(size = 16),
                   axis.text = element_text(size = 14))
         
+        if (showMean()) {
+            myPlot <- myPlot +
+                geom_vline(xintercept = myMean, color = "red")
+        }
         
         return(myPlot)        
     })

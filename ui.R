@@ -49,7 +49,10 @@ shinyUI(fluidPage(
             sliderInput(inputId = "xlim", 
                         label = "Upper x limit",
                         value = 1, min = 0, max = 10,
-                        step = 0.01)
+                        step = 0.01),
+            checkboxInput(inputId = "showMean", 
+                          label = "Show mean", 
+                          value = TRUE)
         ),
         
         # Show a plot of the generated distribution
