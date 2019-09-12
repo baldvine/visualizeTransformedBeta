@@ -1,5 +1,5 @@
-# Object file
-*.o
+# rsconnect folder, used for deploying to shinyapps.io
+rsconnect/
 
-# Ada Library Information
-*.ali
+# pdf files:
+*.pdf
