@@ -20,6 +20,13 @@ $$
 All plots made with the `dtrbeta()` function from the package <a href="https://cran.r-project.org/web/packages/actuar/index.html" target="_blank">actuar package</a>.
 
 
+**Note**: Math is not easily rendered in markdown files. However, the html file looks good. To quickly view without having to download, do the following dance steps:
+
+i) Click on html file in github repository and copy the url
+ii) Go to <a href="http://htmlpreview.github.io/" target="_blank">http://htmlpreview.github.io/</a> and paste
+
+
+
 ## References
 
 1. Gary G. Venter. Transformed beta and gamma distributions and aggregate
