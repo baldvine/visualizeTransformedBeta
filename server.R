@@ -32,6 +32,13 @@ shinyServer(function(input, output) {
 
     output$trbPlot <- renderPlot({
         
+        myMean <- 
+            mtrbeta(order = 1, 
+                    shape1 = parA()/parC(),
+                    shape2 = parC(),
+                    shape3 = parB()/parC(),
+                    scale = parD())
+        
         myPlot <- 
             ggplot(data = data.frame(x = 0), mapping = aes(x = x)) + 
             stat_function(fun = dtrbeta,
@@ -48,9 +55,11 @@ shinyServer(function(input, output) {
             #                           scale = 0.0252976710394), 
             #               #xlim = c(0,0.612035560576), 
             #               color = 'blue', size = 1) + 
-            ggtitle(label = "Density function of a transformed beta") +
+            ggtitle(label = "Density function of a transformed beta",
+                    subtitle = paste0("Mean value: ", format(myMean, digits = 5, nsmall = 5))) +
             xlab("x") + ylab("Density") +
-            theme(plot.title = element_text(hjust = 0.5, size = 18), 
+            theme(plot.title = element_text(hjust = 0.5, size = 18),
+                  plot.subtitle = element_text(hjust = 0.5, size = 16),
                   axis.title = element_text(size = 16),
                   axis.text = element_text(size = 14))
         
