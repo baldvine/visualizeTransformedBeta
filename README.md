@@ -23,6 +23,7 @@ All plots made with the `dtrbeta()` function from the package <a href="https://c
 **Note**: Math is not easily rendered in markdown files. However, the html file looks good. To quickly view without having to download, do the following dance steps:
 
 i) Click on html file in github repository and copy the url
+
 ii) Go to <a href="http://htmlpreview.github.io/" target="_blank">http://htmlpreview.github.io/</a> and paste
 
 
