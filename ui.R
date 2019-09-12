@@ -24,7 +24,7 @@ shinyUI(fluidPage(
             h4("Parameters"),
             sliderInput(inputId = "paramA", 
                         label = "Parameter a",
-                        value = 3, min = 2, max = 10,
+                        value = 3, min = 1, max = 10,
                         step = 0.01),
             sliderInput(inputId = "paramB", 
                         label = "Parameter b",
