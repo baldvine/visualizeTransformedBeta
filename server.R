@@ -43,12 +43,21 @@ shinyServer(function(input, output) {
 
     output$trbPlot <- renderPlot({
         
-        myMean <- 
+        if (paramsFromSliders()) {
+            myMean <- 
+                mtrbeta(order = 1, 
+                        shape1 = parA.slider()/parC.slider(),
+                        shape2 = parC.slider(),
+                        shape3 = parB.slider()/parC.slider(),
+                        scale = parD.slider())
+        } else { myMean <- 
             mtrbeta(order = 1, 
                     shape1 = parA()/parC(),
                     shape2 = parC(),
                     shape3 = parB()/parC(),
                     scale = parD())
+        }
+        
         
         myPlot <- 
             ggplot(data = data.frame(x = 0), mapping = aes(x = x)) +
