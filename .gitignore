@@ -6,3 +6,6 @@ someMethods.R
 
 # pdf files:
 *.pdf
+
+*.lnk
+link2Github*
