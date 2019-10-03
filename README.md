@@ -10,7 +10,7 @@ $$
 
 However, a common reparameterization is the following:
 $$
-f(x|r,s,\alpha,\beta) \propto \left(x/d\right)^{b-1} \left(1 + \left(x/d\right)^{c}\right) ^{-\frac{a+b}{c}}
+f(x|a,b,c,d) \propto \left(x/d\right)^{b-1} \left(1 + \left(x/d\right)^{c}\right) ^{-\frac{a+b}{c}}
 $$
 which is easily obtained from the standard parameters by comparing the two density functions
 $$
