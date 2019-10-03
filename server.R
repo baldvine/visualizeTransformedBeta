@@ -8,6 +8,14 @@ library(magrittr)
 
 shinyServer(function(input, output) {
     
+    # observeEvent(input$paramsFromSliders, {
+    #     insertUI(
+    #         selector = "#paramsFromSliders",
+    #         where = "afterEnd",
+    #         ui = textInput(paste0("txt", input$paramsFromSliders),
+    #                        "Insert some text")
+    #     )
+    # })
     
     # Set x limits:
     myXlim <- reactive({
@@ -19,8 +27,14 @@ shinyServer(function(input, output) {
     })
     
     showMean <- reactive({input$showMean})
+    paramsFromSliders <- 
+        reactive({input$paramsFromSliders})
     
     # Get parameters:
+    parA.slider <- reactive({input$paramA.slider})
+    parB.slider <- reactive({input$paramB.slider})
+    parC.slider <- reactive({input$paramC.slider})
+    parD.slider <- reactive({input$paramD.slider})
     parA <- reactive({input$paramA})
     parB <- reactive({input$paramB})
     parC <- reactive({input$paramC})
@@ -37,21 +51,7 @@ shinyServer(function(input, output) {
                     scale = parD())
         
         myPlot <- 
-            ggplot(data = data.frame(x = 0), mapping = aes(x = x)) + 
-            stat_function(fun = dtrbeta,
-                          args = list(shape1 = parA()/parC(),
-                                      shape2 = parC(),
-                                      shape3 = parB()/parC(),
-                                      scale = parD()),
-                          xlim = myXlim(),
-                          color = 'blue', size = 1) +
-            # stat_function(fun = dtrbeta,
-            #               args = list(shape1 = 0.160087257143, 
-            #                           shape2 = 9.21320538026, 
-            #                           shape3 = 0.0887449063835, 
-            #                           scale = 0.0252976710394), 
-            #               #xlim = c(0,0.612035560576), 
-            #               color = 'blue', size = 1) + 
+            ggplot(data = data.frame(x = 0), mapping = aes(x = x)) +
             ggtitle(label = "Density function of a transformed beta",
                     subtitle = paste0("Mean value: ", format(myMean, digits = 5, nsmall = 5))) +
             xlab("x") + ylab("Density") +
@@ -59,7 +59,27 @@ shinyServer(function(input, output) {
                   plot.subtitle = element_text(hjust = 0.5, size = 16),
                   axis.title = element_text(size = 16),
                   axis.text = element_text(size = 14))
-        
+
+        if (paramsFromSliders()) {
+            myPlot <- myPlot +
+                stat_function(fun = dtrbeta,
+                              args = list(shape1 = parA.slider()/parC.slider(),
+                                          shape2 = parC.slider(),
+                                          shape3 = parB.slider()/parC.slider(),
+                                          scale = parD()),
+                              xlim = myXlim(),
+                              color = 'blue', size = 1)
+        } else {
+            myPlot <- myPlot +
+                stat_function(fun = dtrbeta,
+                              args = list(shape1 = parA()/parC(),
+                                          shape2 = parC(),
+                                          shape3 = parB()/parC(),
+                                          scale = parD()),
+                              xlim = myXlim(),
+                              color = 'blue', size = 1)
+        }
+                
         if (showMean()) {
             myPlot <- myPlot +
                 geom_vline(xintercept = myMean, color = "red")
