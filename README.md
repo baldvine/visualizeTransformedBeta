@@ -3,12 +3,12 @@
 Simple shiny app to visualize the transformed beta distribution. Application is hosted here: <a href="https://baldvine.shinyapps.io/visualizeTransformedBeta/" target="_blank">https://baldvine.shinyapps.io/visualizeTransformedBeta/</a>
 
 
-The density function has four parameters, $r$, $s$, $\alpha$, and $\beta$, and has the following form:
+The density function has four parameters, $r$, $s$, $\alpha$, and $\beta$, and has the following form (see reference 1):
 $$
 f(x|r,s,\alpha,\beta) = \frac{\alpha/\beta}{B(r,s)} \frac{(x/\beta)^{\alpha r -1}}{(1+(x/\beta)^{\alpha})^{r+s}}, \qquad x > 0
 $$
 
-However, a common reparameterization is the following:
+However, another reparameterization (see reference 2) is the following:
 $$
 f(x|a,b,c,d) \propto \left(x/d\right)^{b-1} \left(1 + \left(x/d\right)^{c}\right) ^{-\frac{a+b}{c}}
 $$

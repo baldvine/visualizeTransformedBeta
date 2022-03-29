@@ -3,6 +3,7 @@ rsconnect/
 
 # Various other files:
 someMethods.R
+*.Rhistory
 
 # pdf files:
 *.pdf
