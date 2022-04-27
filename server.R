@@ -69,8 +69,9 @@ shinyServer(function(input, output) {
             ggplot(data = data.frame(x = 0), mapping = aes(x = x)) +
             ggtitle(label = "Density function of a transformed beta",
                     subtitle = paste0("Mean value: ", format(myMean, digits = 5, nsmall = 5))) +
-            xlab("x") + ylab("Density") +
-            ylim(c(0, NA)) +
+            scale_x_continuous(name = "x", expand = c(0, 0)) +
+            scale_y_continuous(name = "Density", expand = c(0, 0)) +
+            coord_cartesian(clip = 'off') +
             theme(plot.title = element_text(hjust = 0.5, size = 18),
                   plot.subtitle = element_text(hjust = 0.5, size = 16),
                   axis.title = element_text(size = 16),
@@ -87,8 +88,8 @@ shinyServer(function(input, output) {
                                           shape2 = parC.slider(),
                                           shape3 = parB.slider()/parC.slider(),
                                           scale = parD.slider()),
-                              xlim = myXlim(),
-                              color = 'blue', size = 1)
+                              xlim = myXlim(), n = 2000,
+                              color = 'blue', size = 1.5)
         } else {
             myPlot <- myPlot +
                 stat_function(fun = dtrbeta,
@@ -96,14 +97,14 @@ shinyServer(function(input, output) {
                                           shape2 = parC(),
                                           shape3 = parB()/parC(),
                                           scale = parD()),
-                              xlim = myXlim(),n = 1000,
-                              color = 'blue', size = 1)
+                              xlim = myXlim(), n = 2000,
+                              color = 'blue', size = 1.5)
         }
                 
         if (showMean()) {
             # Add to plot:
             myPlot <- myPlot +
-                geom_vline(xintercept = myMean, color = "red")
+                geom_vline(xintercept = myMean, color = "red", size = 1.5)
         }
         
         return(myPlot)        
