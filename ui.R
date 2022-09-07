@@ -37,15 +37,15 @@ shinyUI(fluidPage(
                          inline = TRUE),
             conditionalPanel(
                 condition = "input.limitDistribution == 'notLimited'",
-                numericInput(inputId = "notLimited",
-                            label = "Maximum quantile plotted:",
+                numericInput(inputId = "quantile.notLimited",
+                            label = "Maximum quantile of TRB to plot:",
                             value = 0.95, min = 0.01, max = 0.9999,
                             step = 0.0001)
             ),
             conditionalPanel(
                 condition = "input.limitDistribution == 'yesLimited'",
-                numericInput(inputId = "yesLimited",
-                            label = div(HTML("Set limit <em>l</em> as quantile of TRB:")),
+                numericInput(inputId = "quantile.yesLimited",
+                            label = div(HTML("Set limit, <em>l</em>, as quantile of TRB:")),
                             value = 0.95, min = 0.01, max = 0.9999,
                             step = 0.0001)
             ),
@@ -92,16 +92,6 @@ shinyUI(fluidPage(
                             label = "Parameter d",
                             value = 1.2, min = 0, max = 8,
                             step = 0.001)
-            ),
-            checkboxInput(inputId = "modifyXlim", 
-                          label = "Alter x limit", 
-                          value = FALSE),
-            conditionalPanel(
-                condition = "input.modifyXlim == true",
-                sliderInput(inputId = "xlim", 
-                            label = "Upper x limit",
-                            value = 1, min = 0, max = 10,
-                            step = 0.01)
             )
         ),
         
