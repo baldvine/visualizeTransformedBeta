@@ -352,16 +352,26 @@ pre code {
 </div>
 
 
-<div id="visualizing-the-transformed-beta-distribution" class="section level1">
-<h1>Visualizing the Transformed Beta Distribution</h1>
-<p>Simple shiny app to visualize the transformed beta distribution. Application is hosted here: <a href="https://baldvine.shinyapps.io/visualizeTransformedBeta/" target="_blank">https://baldvine.shinyapps.io/visualizeTransformedBeta/</a></p>
-<p>The density function has four parameters, <span class="math inline">\(r\)</span>, <span class="math inline">\(s\)</span>, <span class="math inline">\(\alpha\)</span>, and <span class="math inline">\(\beta\)</span>, and has the following form (see reference 1): <span class="math display">\[
-f(x|r,s,\alpha,\beta) = \frac{\alpha/\beta}{B(r,s)} \frac{(x/\beta)^{\alpha r -1}}{(1+(x/\beta)^{\alpha})^{r+s}}, \qquad x &gt; 0
+<div id="visualizing-the-transformed-beta-distribution-and-its-modifications" class="section level1">
+<h1>Visualizing the Transformed Beta Distribution and its Modifications</h1>
+<p>Simple shiny app to visualize the transformed beta distribution (TRB) and some of its modifications. Application is hosted here: <a href="https://baldvine.shinyapps.io/visualizeTransformedBeta/" target="_blank">https://baldvine.shinyapps.io/visualizeTransformedBeta/</a></p>
+<p>The density function of a TRB random variable, <span class="math inline">\(T\)</span>, has four parameters, <span class="math inline">\(r\)</span>, <span class="math inline">\(s\)</span>, <span class="math inline">\(\alpha\)</span>, and <span class="math inline">\(\beta\)</span>, and has the following form (see reference 1): <span class="math display">\[
+f_{T}(x|r,s,\alpha,\beta) = \frac{\alpha/\beta}{B(r,s)} \frac{(x/\beta)^{\alpha r -1}}{(1+(x/\beta)^{\alpha})^{r+s}}, \qquad x &gt; 0.
+\]</span> The cdf has the following form: <span class="math display">\[
+F_{T}(x; r, s, \alpha, \beta) = \frac{1}{B(r,s)}
+\int\limits_{0}^{(x/\beta)^{\alpha}}
+\frac{t^{r-1}}{(1+t)^{r+s}} dt, x &gt; 0.
 \]</span></p>
-<p>However, another reparameterization (see reference 2) is the following: <span class="math display">\[
-f(x|a,b,c,d) \propto \left(x/d\right)^{b-1} \left(1 + \left(x/d\right)^{c}\right) ^{-\frac{a+b}{c}}
-\]</span> which is easily obtained from the standard parameters by comparing the two density functions <span class="math display">\[
-a = \alpha s, \qquad b = \alpha r  \qquad c = \alpha, \qquad d = \beta.
+<p>The <span class="math inline">\(n\)</span>-th moments of a TRB are <span class="math display">\[
+E[T^{n}] = \beta^{n}\frac{B(r + n/\alpha, s-n/\alpha)}{B(r,s)}
+\]</span> which exist when <span class="math inline">\(\alpha s &gt;n\)</span>.</p>
+<p>The first modification is limiting the distribution at some value <span class="math inline">\(l\)</span>, denoted as <span class="math inline">\(T\wedge l\)</span>, see reference 3 for details. This places the mass above <span class="math inline">\(l\)</span>, <span class="math inline">\(1-F_{T}(l)\)</span>, as a discrete probability (or atom) at <span class="math inline">\(l\)</span>. The moments of such a distribution can be shown to take the form <span class="math display">\[
+E[(T\wedge l)^{n}] = E[T^{n}] F_{B}(q_{l}; r + n/\alpha, s-n/\alpha) + l^{n}(1-F_{T}(l)),
+\]</span> where <span class="math display">\[
+q := \frac{(l/\beta)^{\alpha}}{1+(l/\beta)^{\alpha}},
+\]</span> and <span class="math inline">\(F_{B}\)</span> is the cdf of a beta distribution.</p>
+<p>The second modification is that of zero-inflating the distribution (see reference 4), denoted <span class="math inline">\(T_{0}\)</span>. Similarly as above, this places a discrete probability <span class="math inline">\(p_{0}\)</span> at zero, and scales the remaining (possibly limited) distribution. The moments are simply scaled: <span class="math display">\[
+E[T_{0}^{n}] = (1-p_{0})E[T^{n}].
 \]</span></p>
 <p>Density obtained from made with the <code>dtrbeta()</code> function from the package <a href="https://cran.r-project.org/web/packages/actuar/index.html" target="_blank">actuar package</a>.</p>
 <p><strong>Note</strong>: Math is not easily rendered in markdown files. However, the html file looks good. To quickly view without having to download, do the following dance steps:</p>
@@ -369,6 +379,11 @@ a = \alpha s, \qquad b = \alpha r  \qquad c = \alpha, \qquad d = \beta.
 <li><p>Click on html file in github repository and copy the url</p></li>
 <li><p>Go to <a href="http://htmlpreview.github.io/" target="_blank">http://htmlpreview.github.io/</a> and paste</p></li>
 </ol>
+<p><strong>Further note</strong> Another reparameterization (see reference 2) is the following: <span class="math display">\[
+f_{T}(x|a,b,c,d) = \frac{c/d}{B(b/c, a/c)} \left(x/d\right)^{b-1} \left(1 + \left(x/d\right)^{c}\right) ^{-\frac{a+b}{c}}
+\]</span> which is easily obtained from the standard parameters by comparing the two density functions <span class="math display">\[
+a = \alpha s, \qquad b = \alpha r  \qquad c = \alpha, \qquad d = \beta.
+\]</span></p>
 <div id="references" class="section level2">
 <h2>References</h2>
 <ol style="list-style-type: decimal">
