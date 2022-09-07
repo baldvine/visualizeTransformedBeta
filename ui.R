@@ -24,7 +24,31 @@ shinyUI(fluidPage(
             h4("Plot characteristics:"),
             checkboxInput(inputId = "showMean", 
                           label = "Show distribution mean", 
-                          value = TRUE),
+                          value = FALSE),
+            # radioButtons(inputId = "zeroInflate",
+            #              label = "Zero-inflate the distribution:",
+            #              choices = c("No" = "notZeroInflate",
+            #                          "Yes" = "yesZeroInflate"),
+            #              selected = "notZeroInflate",
+            #              inline = TRUE),
+            # conditionalPanel(
+            #     condition = "input.zeroInflate == 'notZeroInflate'",
+            #     numericInput(inputId = "notZeroInflate",
+            #                  label = "asdf:",
+            #                  value = 0.0, min = 0.0, max = 0.0,
+            #                  step = 0.0001)
+            # ),
+            # conditionalPanel(
+            #     condition = "input.zeroInflate == 'yesZeroInflate'",
+            #     numericInput(inputId = "yesZeroInflate",
+            #                  label = div(HTML("Set limit <em>l</em> as quantile:")),
+            #                  value = 0.1, min = 0.0001, max = 0.9999,
+            #                  step = 0.0001)
+            # ),
+            numericInput(inputId = "p0Value",
+                         label = "Set zero-inflation, if any:",
+                         value = 0, min = 0.000, max = 0.9999,
+                         step = 0.0001),
             radioButtons(inputId = "limitDistribution",
                          label = "Limit the distribution:",
                          choices = c("No" = "notLimited",
@@ -33,17 +57,17 @@ shinyUI(fluidPage(
                          inline = TRUE),
             conditionalPanel(
                 condition = "input.limitDistribution == 'notLimited'",
-                sliderInput(inputId = "notLimited",
+                numericInput(inputId = "notLimited",
                             label = "Maximum quantile plotted:",
                             value = 0.95, min = 0.01, max = 0.9999,
-                            step = 0.01)
+                            step = 0.0001)
             ),
             conditionalPanel(
                 condition = "input.limitDistribution == 'yesLimited'",
-                sliderInput(inputId = "yesLimited",
+                numericInput(inputId = "yesLimited",
                             label = div(HTML("Set limit <em>l</em> as quantile:")),
                             value = 0.95, min = 0.01, max = 0.9999,
-                            step = 0.01)
+                            step = 0.0001)
             ),
             radioButtons(inputId = "paramsFromSlidersOrValues",
                          label = "Parameters source:",
@@ -59,7 +83,7 @@ shinyUI(fluidPage(
                              step = 0.01),
                 numericInput(inputId = "paramB", 
                              label = "Parameter b",
-                             value = 1, min = 0, max = 20,
+                             value = 2.5, min = 0, max = 20,
                              step = 0.01),
                 numericInput(inputId = "paramC", 
                              label = "Parameter c",
@@ -67,7 +91,7 @@ shinyUI(fluidPage(
                              step = 0.01),
                 numericInput(inputId = "paramD", 
                              label = "Parameter d",
-                             value = 0.2, min = 0, max = 6,
+                             value = 0.2, min = 0, max = 8,
                              step = 0.001)
             ),
             conditionalPanel(
@@ -78,7 +102,7 @@ shinyUI(fluidPage(
                             step = 0.001),
                 sliderInput(inputId = "paramB.slider",
                             label = "Parameter b",
-                            value = 1, min = 0, max = 10,
+                            value = 2.5, min = 0, max = 10,
                             step = 0.001),
                 sliderInput(inputId = "paramC.slider",
                             label = "Parameter c",
@@ -86,7 +110,7 @@ shinyUI(fluidPage(
                             step = 0.001),
                 sliderInput(inputId = "paramD.slider",
                             label = "Parameter d",
-                            value = 0.2, min = 0, max = 2,
+                            value = 0.2, min = 0, max = 8,
                             step = 0.001)
             ),
             checkboxInput(inputId = "modifyXlim", 
