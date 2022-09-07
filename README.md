@@ -17,7 +17,7 @@ $$
 a = \alpha s, \qquad b = \alpha r  \qquad c = \alpha, \qquad d = \beta.
 $$
 
-All plots made with the `dtrbeta()` function from the package <a href="https://cran.r-project.org/web/packages/actuar/index.html" target="_blank">actuar package</a>.
+Density obtained from made with the `dtrbeta()` function from the package <a href="https://cran.r-project.org/web/packages/actuar/index.html" target="_blank">actuar package</a>.
 
 
 **Note**: Math is not easily rendered in markdown files. However, the html file looks good. To quickly view without having to download, do the following dance steps:
@@ -30,9 +30,10 @@ ii) Go to <a href="http://htmlpreview.github.io/" target="_blank">http://htmlpre
 
 ## References
 
-1. Gary G. Venter. Transformed beta and gamma distributions and aggregate
-losses. *Proceedings of the Casualty Actuarial Society*, LXX, 1983.
+1. Venter, Gary G. 1983. Transformed beta and gamma distributions and aggregate losses. *Proceedings of the Casualty Actuarial Society LXX*, 289-308.
 
-2. Gary G. Venter. Effects of parameters of transformed beta distributions.
-*Winter Forums of the Casualty Actuarial Society*, 2003.
+2. Venter, Gary G. 2003. Effects of parameters of transformed beta distributions. *Winter Forums of the Casualty Actuarial Society*.
 
+3. Ospina, Raydonal and Silvia L. P. Ferrari. 2010. Inflated beta distributions. *Statistical Papers* 51(1), 111-126.
+
+4. Klugman, Stuart A., Harry H. Panjer, and Gordon E. Willmot. 2012. *Loss Models: From Data to Decisions (4 th. ed.).* John Wiley & Sons.

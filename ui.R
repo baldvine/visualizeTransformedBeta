@@ -25,26 +25,6 @@ shinyUI(fluidPage(
             checkboxInput(inputId = "showMean", 
                           label = "Show distribution mean", 
                           value = FALSE),
-            # radioButtons(inputId = "zeroInflate",
-            #              label = "Zero-inflate the distribution:",
-            #              choices = c("No" = "notZeroInflate",
-            #                          "Yes" = "yesZeroInflate"),
-            #              selected = "notZeroInflate",
-            #              inline = TRUE),
-            # conditionalPanel(
-            #     condition = "input.zeroInflate == 'notZeroInflate'",
-            #     numericInput(inputId = "notZeroInflate",
-            #                  label = "asdf:",
-            #                  value = 0.0, min = 0.0, max = 0.0,
-            #                  step = 0.0001)
-            # ),
-            # conditionalPanel(
-            #     condition = "input.zeroInflate == 'yesZeroInflate'",
-            #     numericInput(inputId = "yesZeroInflate",
-            #                  label = div(HTML("Set limit <em>l</em> as quantile:")),
-            #                  value = 0.1, min = 0.0001, max = 0.9999,
-            #                  step = 0.0001)
-            # ),
             numericInput(inputId = "p0Value",
                          label = "Set zero-inflation, if any:",
                          value = 0, min = 0.000, max = 0.9999,
@@ -65,7 +45,7 @@ shinyUI(fluidPage(
             conditionalPanel(
                 condition = "input.limitDistribution == 'yesLimited'",
                 numericInput(inputId = "yesLimited",
-                            label = div(HTML("Set limit <em>l</em> as quantile:")),
+                            label = div(HTML("Set limit <em>l</em> as quantile of TRB:")),
                             value = 0.95, min = 0.01, max = 0.9999,
                             step = 0.0001)
             ),
@@ -91,7 +71,7 @@ shinyUI(fluidPage(
                              step = 0.01),
                 numericInput(inputId = "paramD", 
                              label = "Parameter d",
-                             value = 0.2, min = 0, max = 8,
+                             value = 1.2, min = 0, max = 8,
                              step = 0.001)
             ),
             conditionalPanel(
@@ -110,7 +90,7 @@ shinyUI(fluidPage(
                             step = 0.001),
                 sliderInput(inputId = "paramD.slider",
                             label = "Parameter d",
-                            value = 0.2, min = 0, max = 8,
+                            value = 1.2, min = 0, max = 8,
                             step = 0.001)
             ),
             checkboxInput(inputId = "modifyXlim", 
@@ -127,9 +107,9 @@ shinyUI(fluidPage(
         
         # Show a plot of the generated distribution
         mainPanel(
-            h2("Baldvin Einarsson, PhD"),
-            h2("Visualization of transformed beta"),
-            helpText(a("See github page for details and references (and code!)",
+            h2("Baldvin Einarsson, Ph.D."),
+            h2("Visualization of transformed beta and its modifications"),
+            helpText(a("See github page for details and references (and code)",
                        href = "https://github.com/baldvine/visualizeTransformedBeta",
                        target = "_blank")
             ),

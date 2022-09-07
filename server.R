@@ -24,6 +24,12 @@ shinyServer(function(input, output) {
     parC <- reactive({input$paramC})
     parD <- reactive({input$paramD})
     
+    parameterA <- reactive({
+        if (paramsFromSlidersOrValues() == 'useSliders') {
+            return(input$paramA.slider)
+        } else return(input$paramA)
+    })
+    
     myP0 <- reactive({input$p0Value})
     
     maxQuantile.limited <- reactive({input$yesLimited})
@@ -58,7 +64,7 @@ shinyServer(function(input, output) {
     })
     
     myLineSize <- 2
-    myPointSize <- 2
+    myPointSize <- 3
     myThinLineSize <- 0.75*myLineSize
     atomLineColor <- "firebrick"
 
@@ -108,37 +114,44 @@ shinyServer(function(input, output) {
 
         if (paramsFromSlidersOrValues() == 'useSliders') {
             myPlot <- myPlot +
-                stat_function(fun = dtrbeta,
-                              args = list(shape1 = parA.slider()/parC.slider(),
-                                          shape2 = parC.slider(),
-                                          shape3 = parB.slider()/parC.slider(),
-                                          scale = parD.slider()),
-                              xlim = myXlim(), n = 2000,
-                              color = 'black', size = 1.5)
+                stat_function(fun = function(x){
+                    (1-myP0())*dtrbeta(x, 
+                                       shape1 = parA.slider()/parC.slider(),
+                                       shape2 = parC.slider(),
+                                       shape3 = parB.slider()/parC.slider(),
+                                       scale = parD.slider())
+                },
+                xlim = myXlim(), n = 2000,
+                color = 'black', size = 1.5)
         } else {
             myPlot <- myPlot +
-                stat_function(fun = dtrbeta,
-                              args = list(shape1 = parA()/parC(),
-                                          shape2 = parC(),
-                                          shape3 = parB()/parC(),
-                                          scale = parD()),
-                              xlim = myXlim(), n = 2000,
-                              color = 'black', size = 1.5)
+                stat_function(fun = function(x){
+                    (1-myP0())*dtrbeta(x,
+                                       shape1 = parA()/parC(),
+                                       shape2 = parC(),
+                                       shape3 = parB()/parC(),
+                                       scale = parD())
+                },
+                xlim = myXlim(), n = 2000,
+                color = 'black', size = 1.5)
         }
         
         if (limitDistribution() == 'yesLimited') {
             myPlot <- myPlot +
+                geom_segment(aes(x = max(myXlim()), xend = max(myXlim()), 
+                             y = 0, yend = (1 - myP0())*(1 - maxQuantile.limited())), 
+                         size = myThinLineSize, color = atomLineColor) +
                 geom_point(data = data.frame(x = max(myXlim()), 
                                              y = (1 - myP0())*(1 - maxQuantile.limited())), 
                            size = myPointSize, 
-                           color = "black") + 
-            geom_segment(aes(x = max(myXlim()), xend = max(myXlim()), 
-                             y = 0, yend = (1 - myP0())*(1 - maxQuantile.limited())), 
-                         size = myThinLineSize, color = atomLineColor)
+                           color = "black")
         }
         
         if (zeroInflated()) {
             myPlot <- myPlot +
+                geom_segment(aes(x = 0, xend = 0, 
+                                 y = 0, yend = myP0()), 
+                             size = myThinLineSize, color = atomLineColor) +
                 geom_point(data = data.frame(x = 0, y = myP0()), 
                            size = myPointSize, 
                            color = "black")
