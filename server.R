@@ -9,8 +9,8 @@ library(magrittr)
 shinyServer(function(input, output) {
     
     showMean <- reactive({input$showMean})
-    paramsFromSliders <- 
-        reactive({input$paramsFromSliders})
+    paramsFromSlidersOrValues <- 
+        reactive({input$paramsFromSlidersOrValues})
     
     # Get parameters:
     parA.slider <- reactive({input$paramA.slider})
@@ -28,7 +28,7 @@ shinyServer(function(input, output) {
             return(c(0,input$xlim))
         } else {
             # Plot up to the 99th percentile
-            if (paramsFromSliders()) {
+            if (paramsFromSlidersOrValues() == 'useSliders') {
                 c(0,qtrbeta(p = 0.99, 
                             shape1 = parA.slider()/parC.slider(),
                             shape2 = parC.slider(),
@@ -49,7 +49,7 @@ shinyServer(function(input, output) {
     output$trbPlot <- renderPlot({
         
         # Compute the mean:
-        if (paramsFromSliders()) {
+        if (paramsFromSlidersOrValues() == 'useSliders') {
             myMean <- 
                 mtrbeta(order = 1, 
                         shape1 = parA.slider()/parC.slider(),
@@ -81,7 +81,7 @@ shinyServer(function(input, output) {
                   panel.border = element_blank(),
                   panel.grid = element_blank())
 
-        if (paramsFromSliders()) {
+        if (paramsFromSlidersOrValues() == 'useSliders') {
             myPlot <- myPlot +
                 stat_function(fun = dtrbeta,
                               args = list(shape1 = parA.slider()/parC.slider(),
