@@ -38,14 +38,14 @@ shinyUI(fluidPage(
             conditionalPanel(
                 condition = "input.limitDistribution == 'notLimited'",
                 numericInput(inputId = "quantile.notLimited",
-                            label = "Maximum quantile of TRB to plot:",
+                            label = "Set probability of maximum TRB quantile to plot:",
                             value = 0.95, min = 0.01, max = 0.9999,
                             step = 0.0001)
             ),
             conditionalPanel(
                 condition = "input.limitDistribution == 'yesLimited'",
                 numericInput(inputId = "quantile.yesLimited",
-                            label = div(HTML("Set limit, <em>l</em>, as quantile of TRB:")),
+                            label = div(HTML("Limit, <em>l</em>, as quantile of TRB. Set probability:")),
                             value = 0.95, min = 0.01, max = 0.9999,
                             step = 0.0001)
             ),
