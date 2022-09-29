@@ -97,8 +97,8 @@ shinyUI(fluidPage(
         
         # Show a plot of the generated distribution
         mainPanel(
-            h2("Baldvin Einarsson, Ph.D."),
             h2("Visualization of transformed beta and its modifications"),
+            h2("Baldvin Einarsson, Ph.D."),
             helpText(a("See github page for details and references (and code)",
                        href = "https://github.com/baldvine/visualizeTransformedBeta",
                        target = "_blank")
